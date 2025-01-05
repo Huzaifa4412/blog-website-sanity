@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
-const page = async ({ params }: { params: { slug: string } }) => {
+const page = async ({ params }: { params: any }) => {
   const query = `*[_type == "blog" && slug.current == "${params.slug}"][0]`;
   const data = await client.fetch(query);
   return (
