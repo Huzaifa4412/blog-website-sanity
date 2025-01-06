@@ -28,7 +28,7 @@ const Footer = () => {
               Twitter
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/Huzaifa4412"
               className="text-white hover:text-gray-400"
               target="_blank"
               rel="noopener noreferrer"
@@ -36,7 +36,7 @@ const Footer = () => {
               GitHub
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/huzaifa-mukhtar-8ba0492b5/"
               className="text-white hover:text-gray-400"
               target="_blank"
               rel="noopener noreferrer"
