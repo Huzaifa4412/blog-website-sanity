@@ -3,8 +3,9 @@ import { client } from "@/sanity/lib/client";
 import React from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import { Params } from "next/dist/server/request/params";
 
-const page = async (props: { params: Promise<any> }) => {
+const page = async (props: { params: Promise<Params> }) => {
   const params = await props.params;
   const query = `*[_type == "blog" && slug.current == "${params.slug}"][0]`;
   const data = await client.fetch(query);

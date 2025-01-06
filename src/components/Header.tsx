@@ -6,8 +6,10 @@ import { BsMoonStarsFill } from "react-icons/bs";
 
 export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   return (
     <header
@@ -16,6 +18,7 @@ export default function Header() {
       } shadow-md sticky top-0 z-50 transition-colors duration-300`}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
+        {/* Logo Section */}
         <div className="flex items-center space-x-2">
           <span
             className={`${
@@ -50,13 +53,13 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
           <Link href="/">
             <span
               className={`text-lg font-medium ${
                 darkMode
-                  ? "text-gray-300 hover:text-yellow-400"
+                  ? "text-gray-500 hover:text-yellow-400"
                   : "text-gray-700 hover:text-blue-500"
               } transition duration-300`}
             >
@@ -67,18 +70,18 @@ export default function Header() {
             <span
               className={`text-lg font-medium ${
                 darkMode
-                  ? "text-gray-300 hover:text-yellow-400"
+                  ? "text-gray-500 hover:text-yellow-400"
                   : "text-gray-700 hover:text-blue-500"
               } transition duration-300`}
             >
               About
             </span>
           </Link>
-          <Link href="/">
+          <Link href="/Blog">
             <span
               className={`text-lg font-medium ${
                 darkMode
-                  ? "text-gray-300 hover:text-yellow-400"
+                  ? "text-gray-500 hover:text-yellow-400"
                   : "text-gray-700 hover:text-blue-500"
               } transition duration-300`}
             >
@@ -87,20 +90,12 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Light/Dark Theme Toggle */}
-        <button
-          className="hidden md:flex items-center bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-md hover:scale-105 transition-transform duration-300"
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? (
-            <MdOutlineWbSunny className="h-6 w-6 text-yellow-400" />
-          ) : (
-            <BsMoonStarsFill className="h-6 w-6 text-blue-500" />
-          )}
-        </button>
-
         {/* Mobile Menu Icon */}
-        <button className="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none">
+        <button
+          className="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle Mobile Menu"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -117,6 +112,71 @@ export default function Header() {
           </svg>
         </button>
       </div>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div
+          className={`md:hidden ${
+            darkMode ? "bg-gray-900" : "bg-white"
+          } bg-white py-6 shadow-lg transition-all`}
+        >
+          <nav className="flex flex-col items-center space-y-4">
+            <Link href="/">
+              <span
+                className={`text-lg font-medium ${
+                  darkMode
+                    ? "text-gray-500 hover:text-yellow-400"
+                    : "text-gray-700 hover:text-blue-500"
+                } transition duration-300`}
+              >
+                Home
+              </span>
+            </Link>
+            <Link href="/About">
+              <span
+                className={`text-lg font-medium ${
+                  darkMode
+                    ? "text-gray-500 hover:text-yellow-400"
+                    : "text-gray-700 hover:text-blue-500"
+                } transition duration-300`}
+              >
+                About
+              </span>
+            </Link>
+            <Link href="/Blog">
+              <span
+                className={`text-lg font-medium ${
+                  darkMode
+                    ? "text-gray-500 hover:text-yellow-400"
+                    : "text-gray-700 hover:text-blue-500"
+                } transition duration-300`}
+              >
+                Blog
+              </span>
+            </Link>
+          </nav>
+
+          {/* Light/Dark Mode Toggle */}
+          <div className="flex justify-center mt-6">
+            <button
+              className={`flex items-center px-4 py-2 rounded-full shadow-md transition-transform duration-300 ${
+                darkMode
+                  ? "bg-yellow-400 text-gray-900"
+                  : "bg-blue-500 text-white"
+              }`}
+              onClick={toggleDarkMode}
+              aria-label="Toggle Dark Mode"
+            >
+              {darkMode ? (
+                <MdOutlineWbSunny className="h-6 w-6 mr-2" />
+              ) : (
+                <BsMoonStarsFill className="h-6 w-6 mr-2" />
+              )}
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
