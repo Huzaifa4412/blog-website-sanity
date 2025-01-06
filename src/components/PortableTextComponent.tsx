@@ -1,5 +1,8 @@
 import React from "react";
-import { PortableText as PortableTextType } from "@portabletext/react";
+import {
+  PortableText as PortableTextType,
+  PortableTextReactComponents,
+} from "@portabletext/react";
 import { urlFor } from "../sanity/lib/image"; // Make sure to create a URL helper function for images.
 import Image from "next/image";
 
@@ -8,7 +11,7 @@ interface PortableTextProps {
 }
 
 const PortableTextComponent: React.FC<PortableTextProps> = ({ value }) => {
-  const components = {
+  const components: Partial<PortableTextReactComponents> = {
     types: {
       image: ({ value }: { value: any }) => {
         const imageUrl = urlFor(value).width(800).url(); // Adjust width accordingly
@@ -24,38 +27,38 @@ const PortableTextComponent: React.FC<PortableTextProps> = ({ value }) => {
       },
     },
     block: {
-      normal: ({ children }: { children: React.ReactNode }) => (
+      normal: ({ children }: { children?: React.ReactNode }) => (
         <p className="text-lg sm:text-xl text-gray-900 leading-relaxed mb-6">
           {children}
         </p>
       ),
-      h1: ({ children }: { children: React.ReactNode }) => (
+      h1: ({ children }: { children?: React.ReactNode }) => (
         <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-600 mb-6">
           {children}
         </h1>
       ),
-      h2: ({ children }: { children: React.ReactNode }) => (
+      h2: ({ children }: { children?: React.ReactNode }) => (
         <h2 className="text-3xl sm:text-4xl font-semibold text-teal-500 mb-4">
           {children}
         </h2>
       ),
-      h3: ({ children }: { children: React.ReactNode }) => (
+      h3: ({ children }: { children?: React.ReactNode }) => (
         <h3 className="text-2xl sm:text-3xl font-semibold text-teal-400 mb-4">
           {children}
         </h3>
       ),
-      ul: ({ children }: { children: React.ReactNode }) => (
+      ul: ({ children }: { children?: React.ReactNode }) => (
         <ul className="list-disc pl-6 mb-6">{children}</ul>
       ),
-      ol: ({ children }: { children: React.ReactNode }) => (
+      ol: ({ children }: { children?: React.ReactNode }) => (
         <ol className="list-decimal pl-6 mb-6">{children}</ol>
       ),
     },
     listItem: {
-      bullet: ({ children }: { children: React.ReactNode }) => (
+      bullet: ({ children }: { children?: React.ReactNode; value: any }) => (
         <li className="text-lg sm:text-xl text-gray-900 mb-2">{children}</li>
       ),
-      number: ({ children }: { children: React.ReactNode }) => (
+      number: ({ children }: { children?: React.ReactNode; value: any }) => (
         <li className="text-lg sm:text-xl text-gray-900 mb-2">{children}</li>
       ),
     },
@@ -65,10 +68,10 @@ const PortableTextComponent: React.FC<PortableTextProps> = ({ value }) => {
         value,
       }: {
         children: React.ReactNode;
-        value: { href: string };
+        value?: { href: string };
       }) => (
         <a
-          href={value.href}
+          href={value?.href}
           className="text-teal-600 hover:text-teal-500 underline"
           target="_blank"
           rel="noopener noreferrer"
