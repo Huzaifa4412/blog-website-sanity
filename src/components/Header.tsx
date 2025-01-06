@@ -74,7 +74,7 @@ export default function Header() {
               About
             </span>
           </Link>
-          <Link href="#blog">
+          <Link href="/">
             <span
               className={`text-lg font-medium ${
                 darkMode
