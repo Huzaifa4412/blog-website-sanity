@@ -1,20 +1,16 @@
-import React from "react";
-import PrimaryBtn from "./PrimaryBtn";
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "@/components/ArticleCard";
+import PrimaryBtn from "@/components/PrimaryBtn";
 import { client } from "@/sanity/lib/client";
-// import client from "@/sanity/client";
+import React from "react";
 
-export const revalidate = 10; //seconds
-
-const Article = async () => {
-  const query = `*[_type == "blog"][0...3] | order(_createdAt desc)`;
+const page = async () => {
+  const query = `*[_type == "blog"]| order(_createdAt desc)`;
   const articleData = await client.fetch(query);
-
   return (
     <div className="max-w-[1440px]  mx-auto !py-[80px] px-8 flex flex-col gap-[40px]">
       <div className="heading flex items-center justify-between">
-        <h2 className="lg:text-5xl text-4xl font-semibold">Latest Articles</h2>
-        <PrimaryBtn text="More Articles" arrow={true} route={"/Blog"} />
+        <h2 className="lg:text-5xl text-4xl font-semibold">All Articles</h2>
+        <PrimaryBtn text="More Articles" arrow={true} />
       </div>
       <div className="articleContainer w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center justify-items-center items-center gap-[25px]">
         {articleData.map(
@@ -40,4 +36,4 @@ const Article = async () => {
   );
 };
 
-export default Article;
+export default page;
