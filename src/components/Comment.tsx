@@ -1,6 +1,7 @@
 "use client";
 
 import { AddComment, getComments } from "@/app/actions/comment";
+import { client } from "@/sanity/lib/client";
 import React, { useState, useEffect } from "react";
 
 interface Comment {
@@ -24,6 +25,19 @@ const CommentSection = ({ postId }: { postId: string }) => {
       setComments(comments);
     };
     fetchComments();
+
+    const subscription = client
+      .listen(
+        `*[_type == "comment" && post._ref == $postId] | order(_createdAt desc)`,
+        { postId }
+      )
+      .subscribe((update) => {
+        if (update.result) {
+          setComments((prev) => [update.result as unknown as Comment, ...prev]);
+        }
+      });
+
+    return () => subscription.unsubscribe();
   }, [postId]);
 
   const addComment = async (e: React.FormEvent) => {
@@ -91,7 +105,7 @@ const CommentSection = ({ postId }: { postId: string }) => {
         <div className="w-full my-8 p-4 border rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
           <div className="space-y-4">
-            {comments.map((comment) => (
+            {comments.map((comment, idx) => (
               <div
                 key={comment.id}
                 className="flex items-start space-x-3 p-2 border-b"
