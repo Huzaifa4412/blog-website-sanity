@@ -6,7 +6,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header
-      className={` shadow-md sticky top-0 z-50 transition-colors duration-300`}
+      className={` shadow-md bg-white sticky top-0 z-50 transition-colors duration-300`}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo Section */}

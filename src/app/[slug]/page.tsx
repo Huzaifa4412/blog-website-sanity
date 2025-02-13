@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { Params } from "next/dist/server/request/params";
+import CommentSection from "@/components/Comment";
 
 const page = async (props: { params: Promise<Params> }) => {
   const params = await props.params;
@@ -19,6 +20,7 @@ const page = async (props: { params: Promise<Params> }) => {
         height={1000}
       />
       <PortableTextComponent value={data.content} />
+      <CommentSection postId={data._id} />
     </div>
   );
 };

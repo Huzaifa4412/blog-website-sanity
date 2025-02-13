@@ -20,7 +20,7 @@ const ArticleCard = ({
       <div className="image w-full h-[325px] ">
         <Image
           src={urlFor(image.asset._ref).url()}
-          className="w-full h-[325px] rounded-md object-cover object-center
+          className="w-full h-[325px] rounded-md object-cover object-center hover:scale-105 duration-200
           "
           alt="Product"
           width={357}
