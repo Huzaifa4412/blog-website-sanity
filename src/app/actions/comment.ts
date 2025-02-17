@@ -35,3 +35,14 @@ export async function AddComment({ name, email, comment, postId }: {
         createdAt: new Date().toISOString(),
     });
 }
+
+export async function DelHandler(commentId: string) {
+
+    try {
+        await client.delete(commentId);
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting comment:", error);
+        return { error: "Failed to delete comment" };
+    }
+}

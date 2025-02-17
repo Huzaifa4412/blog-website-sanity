@@ -1,8 +1,9 @@
 "use client";
 
-import { AddComment, getComments } from "@/app/actions/comment";
+import { AddComment, DelHandler, getComments } from "@/app/actions/comment";
 import { client } from "@/sanity/lib/client";
 import React, { useState, useEffect } from "react";
+import { Trash } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -63,6 +64,13 @@ const CommentSection = ({ postId }: { postId: string }) => {
     setLoading(false);
   };
 
+  async function handleDelete(commentId: string) {
+    const response = await DelHandler(commentId);
+
+    if (response.success) {
+      setComments(comments.filter((comment) => comment.id !== commentId));
+    }
+  }
   return (
     <>
       <h2 className="text-3xl font-semibold my-5 uppercase">
@@ -107,7 +115,7 @@ const CommentSection = ({ postId }: { postId: string }) => {
           <div className="space-y-4">
             {comments.map((comment, idx) => (
               <div
-                key={comment.id}
+                key={idx}
                 className="flex items-start space-x-3 p-2 border-b"
               >
                 <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
@@ -119,6 +127,14 @@ const CommentSection = ({ postId }: { postId: string }) => {
                     <p className="text-sm text-gray-600">{comment.email}</p>
                   </div>
                   <p className="text-gray-600">{comment.text}</p>
+                </div>
+                <div className="del">
+                  <Trash
+                    color="red"
+                    size={18}
+                    cursor={"pointer"}
+                    onClick={() => handleDelete(comment.id)}
+                  />
                 </div>
               </div>
             ))}
